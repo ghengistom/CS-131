@@ -1,0 +1,82 @@
+//This program will copy a text and display it 
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+//Display (int n);
+//CopyData(int n, string f);
+
+//=================================================================CREATE A CONTAINER========================================================
+struct PERSON												//Create container to hold 3 variable types
+{
+	string name;
+	int age;
+	float gpa;
+
+}; PERSON a[6];
+//=================================================================END PERSON CONTAINER========================================================
+
+//=================================================================COPY DATA METHOD========================================================
+void CopyData(fstream f, int n)			//string	fstream
+{
+	//n=6;
+	//PERSON a[6];
+	//int a[6];
+	//fstream f;													//create object f using <fstream library>
+
+	for (int i = 0; i<6; ++i)
+	{
+		f >> a[i].name >> a[i].age >> a[i].gpa;
+	}
+}
+//=================================================================END COPY DATA METHOD========================================================
+
+//=================================================================READ DATA========================================================
+void ReadData(PERSON&, string )
+{
+	fstream f;
+	//PERSON X;
+	f.open("data.text", ios::in);								//call open function/method from fstream library it takes two parameters file name and namespace 
+
+	for (int i = 0; i<6; ++i)
+	{
+		f >> a[i].name >> a[i].age >> a[i].gpa;
+		cout << "This is READDATA";
+	}
+
+	f.close();
+
+}
+//=================================================================END READ-DATA========================================================
+
+//=================================================================DISPLAY METHOD========================================================
+void Display(PERSON)
+{
+	//int x[6];
+	for (int i = 0; i<6; ++i)
+	{
+		cout << a[i].name << "\t" << a[i].age << "\t" << a[i].gpa;
+		cout << "hi";
+	}
+}
+//=================================================================END DISPLAY METHOD========================================================
+
+//===================================================================BEGIN MAIN=======================================================
+int main()
+{
+	//int a[6];
+	PERSON b;										//create object which will store a string,int, and float in a container called "g"	
+	//int a[6];											//create an array of size six which will store elements of 
+	ReadData(b, "data.txt");						//call ReadData function which has 3 parameters 
+	Display(b);
+	//CopyData(a,6);									//call CopyData method which takes two parameters: file name and object
+	//Display(a);
+
+	//Display(a);
+
+	system("pause");
+	return 0;
+}
+//=================================================================END MAIN========================================================
