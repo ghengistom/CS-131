@@ -58,7 +58,7 @@ void Display(PERSON)
 	for (int i = 0; i<6; ++i)
 	{
 		cout << a[i].name << "\t" << a[i].age << "\t" << a[i].gpa;
-		cout << "hi";
+		cout << "This is Display";
 	}
 }
 //=================================================================END DISPLAY METHOD========================================================
