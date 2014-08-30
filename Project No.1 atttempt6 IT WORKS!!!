@@ -1,0 +1,57 @@
+//This program will copy a text and display it 
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+//Display (int n);
+//CopyData(int n, string f);
+
+//=================================================================CREATE A CONTAINER========================================================
+struct PERSON												//Create container to hold 3 variable types
+{
+	string name;
+	int age;
+	float gpa;
+
+}; PERSON a[6];
+//=================================================================END PERSON CONTAINER========================================================
+
+//=================================================================COPY DATA METHOD========================================================
+void CopyData(string fname, PERSON a[], int n)			//string	fstream
+{
+	fstream f;													//create object f using <fstream library>
+	f.open("data.txt", ios::in);
+	for (int i = 0; i<6; ++i)
+	{
+		f >> a[i].name >> a[i].age >> a[i].gpa;
+	}
+	f.close();
+}
+//=================================================================END COPY DATA METHOD========================================================
+
+
+
+//=================================================================DISPLAY METHOD========================================================
+void Display(PERSON a[])
+{
+	for (int i = 0; i<6; ++i)
+	{
+		cout << a[i].name << "\t" << a[i].age << "\t" << a[i].gpa;
+		cout << "This is Display";
+	}
+}
+//=================================================================END DISPLAY METHOD========================================================
+
+//===================================================================BEGIN MAIN=======================================================
+int main()
+{			
+	CopyData("data.txt", a, 6);
+	Display(a);
+	
+
+	system("pause");
+	return 0;
+}
+//=================================================================END MAIN==============================================
