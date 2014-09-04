@@ -1,0 +1,127 @@
+//---------------------------------------
+//		Name		Tom Bernard
+//		Course		Cpsc-131, section 02
+//		Project		No.1 part 1
+//		Due Date	9/04/14
+//		Instructor	Prof. Ray Ahmadnia
+//
+//	purpose: This program will copy a text file and display it,compute, and display again  
+//				Fall-2014
+//--------------------------------------
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+const string AboveAve[6];													//Create global variable to hold the above average students
+
+//=================================================================CREATE A CONTAINER========================================================
+struct PERSON																//Create container to hold 3 variable types
+{
+	string name;
+	int age;
+	float gpa;
+
+}; PERSON a[6];																//Create a global prototype array of the type PERSON a[6]
+//=================================================================END PERSON CONTAINER========================================================
+
+//=================================================================COPY DATA METHOD========================================================
+void CopyData(string fname, PERSON a[])
+{
+	fstream f;																//create object f using <fstream class(library)>
+
+	f.open("data.txt", ios::in);											//invoke open() from "fstream" it takes 2 paramaters name of file and ios namespace
+	for (int i = 0; i<6; ++i)
+	{
+		f >> a[i].name >> a[i].age >> a[i].gpa;								//invoke fstream scanner function
+	}
+	f.close();																//invoke the close() method of the fstream class
+}
+//=================================================================END COPY DATA METHOD========================================================
+
+
+
+//=================================================================DISPLAY METHOD========================================================
+void Display(PERSON a[])
+{
+	cout << fixed << showpoint << setprecision(1);								//invoke the fixed,showpoint,setprecision methods of the <iomanip> class
+	for (int i = 0; i<6; ++i)
+	{
+		cout << a[i].name << "\t" << a[i].age << "\t" << a[i].gpa << endl;	//Display contents of the array of type PERSON
+	}
+}
+//=================================================================END DISPLAY METHOD========================================================
+
+//=================================================================ComputeAverage(a, AgeAve, GpaAve) METHOD========================================================
+void ComputeAverage(PERSON, float& AgeAve, float& GpaAve)
+{
+	AgeAve = 0;
+	GpaAve = 0;
+	int TotalAge = 0;
+	float TotalGpa = 0;
+	for (int i = 0; i<6; ++i)
+	{
+		TotalAge += a[i].age;
+		TotalGpa += a[i].gpa;
+	}
+	AgeAve = TotalAge / 6.00;
+	GpaAve = TotalGpa / 6.00;
+
+}
+//=================================================================END ComputeAverage METHOD========================================================
+
+//=================================================================DisplayAverage(AgeAve, GpaAve) METHOD==============================================
+void Display(float AgeAve, float GpaAve)
+{
+	cout << fixed << showpoint << setprecision(2);
+	cout << "The average age is " << AgeAve << endl;
+	cout << "The average Gpa is " << GpaAve << endl;
+}
+//=================================================================end DisplayAverage METHOD==============================================
+
+//=================================================================Display(a, GpaAve) METHOD==============================================
+void Display(PERSON, float GpaAve)
+{
+	cout << "The following students are above gpa average: " << endl;
+	for (int i = 0; i<6; ++i)
+	{
+		if (a[i].gpa>GpaAve)
+		{
+			cout << a[i].name << " " << a[i].age << " " << a[i].gpa << endl;
+		}
+	}
+}
+//=================================================================end Display METHOD==============================================
+
+//===================================================================BEGIN MAIN=======================================================
+int main()
+{
+	float AgeAve, GpaAve;
+	CopyData("data.txt", a);
+	Display(a);
+	ComputeAverage(a[6], AgeAve, GpaAve);
+	Display(AgeAve, GpaAve);
+	cout << endl;
+	Display(a[6], GpaAve);
+	system("pause");
+	return 0;
+}
+//=================================================================END MAIN==============================================
+/*=================================================================OUTPUT==============================================
+Maria   21      2.1
+Jeffery 20      2.0
+Bernard 22      3.1
+Matthew 16      3.2
+Kim     19      1.9
+Amber   24      2.4
+The average age is 20.33
+The average Gpa is 2.45
+
+The following students are above gpa average:
+Bernard 22 3.10
+Matthew 16 3.20
+
+=====================================================================================================================*/
