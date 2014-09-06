@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+//const int N=6;
+
+struct PERSON
+{
+	char Name[20];
+	float Balance;
+} ;
+PERSON *a;										// create pointer variable
+
+void Display(PERSON a[], int x)
+{
+	cout<<fixed<<showpoint<<setprecision(2);
+	for(int i=0; i<x; ++i)
+		{
+			cout<<a[i].Name<<" "<<a[i].Balance;//<<a.Balance;
+		}
+	cout<<endl;
+};
+void FindRichest(PERSON a[], int x)
+{
+	int position = 0;
+	float RichestPerson = a[0].Balance;
+	for (int i=0; i<x; ++i)
+	{
+		if(RichestPerson < a[i].Balance)
+		{
+			RichestPerson = a[i].Balance;
+			position = i;
+		}
+	}
+	cout<<"The customer with the maximum balance is "<<a[position].Name;
+};
+void Deposit(char CustName,PERSON a,int N)
+{
+
+};
+
+
+int main()
+{
+	
+	int N;										// This is going to store number of files in record
+	fstream data;								// create object f of type fstream
+	data.open("data.txt", ios::in);
+	data>>N;
+	a=new PERSON[N];
+	
+	
+	for(int i=0; i<N; ++i)
+	{
+		data.getline(a[i].Name, 20, '/');
+		data>>a[i].Balance;
+	}
+
+	data.close();
+
+	Display(a, N);
+	FindRichest(a, N);
+	system("pause");
+	return 0;
+}
