@@ -1,0 +1,93 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+//const int N=6;
+
+struct PERSON											//create an abstract data type to hold two variable types
+{
+	char Name[20];
+	float Balance;
+} ;
+PERSON *a;												// create pointer variable "dynamic Array"
+
+void Display(PERSON a[], int x)							//this function will dipslay customer's information
+{
+	cout<<fixed<<showpoint<<setprecision(2);
+	for(int i=0; i<x; ++i)
+		{
+			cout<<a[i].Name<<" "<<a[i].Balance;//<<a.Balance;
+		}
+	cout<<endl;
+};
+void FindRichest(PERSON a[], int x)
+{
+	int position = 0;
+	float RichestPerson = a[0].Balance;
+	for (int i=0; i<x; ++i)
+	{
+		if(RichestPerson < a[i].Balance)
+		{
+			RichestPerson = a[i].Balance;
+			position = i;
+		}
+	}
+	cout<<"\n\nThe customer with the largest balance is "<<a[position].Name<<"\n\n";
+};
+void Deposit(char CustName[20],PERSON a[], int x)
+{
+		float Deposit = 0;
+		cout<<"Please enter your name and deposit amount";
+		cin>>CustName>>Deposit;
+		//fstream data2;									//this will create another object from fstream library to be used for ios::out to txt
+		//data2.open("data.txt" , ios::out);
+		
+		for(int i=0; i<6; ++i)
+		{
+			if(CustName==a[x].Name)
+			{
+				//data2<<a[i].Name<<a[i].Balance;
+				a[i].Balance = a[i].Balance + Deposit;
+				
+				//data2<<a[i].Balance;
+			}
+		}
+		//data2.close();									//close the connection
+
+};
+
+
+int main()
+{
+	
+	bool Continue = 0;
+	while (Continue == 0)
+	{
+		char CustName[20];
+		cout<<"Saudi Savings and Loan"; 
+		int N;											// This is going to store number of files in record
+		fstream data;									// create object f of type fstream
+		data.open("data.txt", ios::in);					//call open method from fstream library it takes two parameters: filename, ios(::in)//input/output/stream
+		data>>N;										//this takes the first integer number in data.txt
+		a=new PERSON[N];								//create an object from the global dynamic array
+		for(int i=0; i<N; ++i)
+		{
+			data.getline(a[i].Name, 20, '/');
+			data>>a[i].Balance;
+		}
+		data.close();										//use close() method from fstream to close out .txt connection
+		Display(a, N);										//call display function to display customer names and their moneys
+		FindRichest(a, N);									//call this method to find the richest customer in the bank and display them
+		Deposit(CustName, a, N);
+		Display(a, N);
+
+		cout<<"\nAre you finished?(1 for yes and 0 for no)";
+		cin>>Continue;
+		cout<<"\n\n";
+	}
+
+	system("pause");
+	return 0;
+}
